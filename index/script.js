@@ -1,9 +1,9 @@
 document.addEventListener('DOMContentLoaded', () => {
     const products = [
-        { id: 1, name: 'Product 1', price: 10.00, image: 'product1.jpg' },
-        { id: 2, name: 'Product 2', price: 20.00, image: 'product2.jpg' },
-        { id: 3, name: 'Product 3', price: 15.00, image: 'product3.jpg' },
-        { id: 4, name: 'Product 4', price: 25.00, image: 'product4.jpg' }
+        { id: 1, name: 'Product 1', price: 10.00, image: 'Product1.jpg' },
+        { id: 2, name: 'Product 2', price: 20.00, image: 'Product2.jpg' },
+        { id: 3, name: 'Product 3', price: 15.00, image: 'Product3.jpg' },
+        { id: 4, name: 'Product 4', price: 25.00, image: 'Product4.jpg' }
     ];
     const cart = [];
     const productsContainer = document.getElementById('products');

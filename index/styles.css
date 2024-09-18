@@ -14,9 +14,12 @@ header {
     text-align: center;
 }
 
-nav a {
+nav{
+    margin-top: 10px;
+}
+a {
     color: #fff;
-    margin: 0 15px;
+    margin: 0 15px; 
     text-decoration: none;
     font-weight: bold;
 }
@@ -28,8 +31,109 @@ nav a:hover {
 main {
     padding: 20px;
 }
+h1{
+    margin: 0;
+}
+/*contact page*/
+.contactmain{ 
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    height: 80vh;
+}
+#contact{
+    background: #fff; 
+    padding: 30px; 
+    border-radius: 10px; 
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); 
+    width: 90%; 
+    max-width: 500px;
+}
+#contacth2{
+    text-align: center; color: #007bff;
+}
+#contactform{
+    padding: 10px; 
+    margin-bottom: 15px; 
+    border: 1px solid #ddd; 
+    border-radius: 5px; 
+    font-size: 1rem;
+}
+#submit-button{
+    background-color: #28a745; 
+    color: #fff; 
+    padding: 10px; 
+    border: none; 
+    border-radius: 5px; 
+    font-size: 1rem; 
+    cursor: pointer; 
+    transition: background-color 0.3s ease;
+}
 
-/* Hero Section */
+/*cart page*/
+#cart{
+    background: #fff; 
+    padding: 20px; 
+    border-radius: 10px; 
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); 
+    width: 90%; 
+    max-width: 600px; 
+    margin: auto;
+}
+#cart-h2{
+    text-align: center; 
+    color: #007bff;
+}
+#cart-total{
+    font-size: 1.2rem; 
+    margin-top: 20px; 
+    text-align: right;
+}
+#cart-items{
+    list-style: none; 
+    padding: 0; 
+    margin: 0;
+}
+#checkout{
+    display: block; 
+    background-color: #28a745; 
+    color: #fff; 
+    padding: 10px; 
+    border: none; 
+    border-radius: 5px; 
+    font-size: 1rem; 
+    cursor: pointer; 
+    margin-top: 20px; 
+    width: 100%; 
+    transition: background-color 0.3s ease;
+}
+
+/*product page*/
+#product-filter-sort{
+    margin-bottom: 20px; 
+    text-align: center;
+}
+#products{
+    display: grid; 
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
+    gap: 20px;
+}
+#search{
+    padding: 10px; 
+    border: 1px solid #ddd; 
+    border-radius: 5px; 
+    font-size: 1rem; 
+    margin-right: 10px;
+}
+#sort{
+    padding: 10px; 
+    border: 1px solid #ddd; 
+    border-radius: 5px; 
+    font-size: 1rem;
+}
+
+
+/*index page*/
 #hero {
     background: linear-gradient(to right, #007bff, #6610f2);
     color: #fff;
