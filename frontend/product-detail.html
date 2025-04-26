@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Detail - E-commerce Store</title>
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+    <header>
+        <h1>E-commerce Store</h1>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="products.html">Products</a>
+            <a href="cart.html">Cart</a>
+            <a href="login.html">Login</a>
+            <a href="register.html">Register</a>
+        </nav>
+        <div id="user-info"></div>
+    </header>
+    
+    <main>
+        <div id="product-detail" style="display: flex; gap: 2rem; max-width: 1200px; margin: 0 auto;">
+            <!-- Product details will be loaded dynamically -->
+        </div>
+    </main>
+    
+    <footer>
+        <p>&copy; 2024 E-commerce Store. All rights reserved.</p>
+    </footer>
+    
+    <script>
+        // Base URL for API
+        const API_URL = 'http://localhost:5000/api';
+        
+        // Get product ID from URL
+        const params = new URLSearchParams(window.location.search);
+        const productId = params.get('id');
+        
+        // Load product details
+        async function loadProductDetails() {
+            if (!productId) {
+                window.location.href = 'products.html';
+                return;
+            }
+            
+            try {
+                const response = await fetch(`${API_URL}/products/${productId}`);
+                const product = await response.json();
+                
+                if (product._id) {
+                    document.title = `${product.name} - E-commerce Store`;
+                    
+                    const productDetail = document.getElementById('product-detail');
+                    productDetail.innerHTML = `
+                        <div style="flex: 1;">
+                            <img src="${product.image}" alt="${product.name}" style="width: 100%; border-radius: 10px;">
+                        </div>
+                        <div style="flex: 1;">
+                            <h2>${product.name}</h2>
+                            <p style="font-size: 1.5rem; margin: 1rem 0; color: var(--primary-color);">$${product.price.toFixed(2)}</p>
+                            <p>${product.description}</p>
+                            <p style="margin: 1rem 0;">
+                                <strong>Category:</strong> ${product.category}
+                            </p>
+                            <p>
+                                <strong>Status:</strong> 
+                                ${product.countInStock > 0 ? 'In Stock' : 'Out of Stock'}
+                            </p>
+                            <button 
+                                id="add-to-cart-btn" 
+                                data-id="${product._id}" 
+                                style="padding: 0.75rem 1.5rem; margin-top: 1rem; background-color: var(--secondary-color); color: #fff; border: none; border-radius: 5px; cursor: pointer;"
+                                ${product.countInStock === 0 ? 'disabled' : ''}
+                            >
+                                ${product.countInStock > 0 ? 'Add to Cart' : 'Out of Stock'}
+                            </button>
+                        </div>
+                    `;
+                    
+                    // Add event listener to Add to Cart button
+                    document.getElementById('add-to-cart-btn').addEventListener('click', function() {
+                        addToCart(product._id);
+                    });
+                } else {
+                    window.location.href = 'products.html';
+                }
+            } catch (error) {
+                console.error('Error loading product details:', error);
+                window.location.href = 'products.html';
+            }
+        }
+        
+        // Add product to cart
+        function addToCart(productId) {
+            // Get products and cart from localStorage
+            const products = JSON.parse(localStorage.getItem('products') || '[]');
+            let cart = JSON.parse(localStorage.getItem('cart') || '[]');
+            
+            // Find the product
+            const product = products.find(p => p._id === productId);
+            
+            if (!product) {
+                console.error(`Product with ID ${productId} not found`);
+                return;
+            }
+            
+            // Check if product is already in cart
+            const existingItem = cart.find(item => item._id === productId);
+            
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({
+                    _id: product._id,
+                    name: product.name,
+                    price: product.price,
+                    image: product.image,
+                    quantity: 1
+                });
+            }
+            
+            // Save updated cart to localStorage
+            localStorage.setItem('cart', JSON.stringify(cart));
+            
+            // Show confirmation message
+            alert(`${product.name} added to cart!`);
+        }
+        
+        // Load product details when DOM is loaded
+        document.addEventListener('DOMContentLoaded', loadProductDetails);
+    </script>
+</body>
+</html>
